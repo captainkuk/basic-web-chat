@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/captainkuk/basic-web-chat#readme",
   "dependencies": {
+    "bootstrap": "^4.5.0",
     "bootstrap4": "0.0.1-security",
     "express": "^4.17.1",
     "jquery": "^3.5.1",
