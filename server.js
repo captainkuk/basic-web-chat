@@ -1,8 +1,15 @@
+const bodyParser = require('body-parser');
+
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-app.use(express.urlencoded());
+app.use(bodyParser.urlencoded({
+    extended:true
+}));
+
+app.use(bodyParser.json());
+
 
 app.get('/',(req,res)=>{
     //res.end("Basic Web Chat"); 
@@ -11,10 +18,11 @@ app.get('/',(req,res)=>{
 
 
 var message;
-app.get('/sendmessage',(req,res)=>{
+app.post('/sendmessage',(req,res)=>{
 
     res.sendFile(__dirname+'/sendmessage.html');
     
+    console.log(body.user);
     io.emit('chat message',"5555");
      
 });
