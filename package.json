@@ -1,0 +1,25 @@
+{
+  "name": "basic-web-chat",
+  "version": "1.0.0",
+  "description": "basic-web-chat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/captainkuk/basic-web-chat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/captainkuk/basic-web-chat/issues"
+  },
+  "homepage": "https://github.com/captainkuk/basic-web-chat#readme",
+  "dependencies": {
+    "bootstrap4": "0.0.1-security",
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "socket.io": "^2.3.0"
+  }
+}
