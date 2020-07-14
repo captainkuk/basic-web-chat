@@ -10,49 +10,30 @@
     <script type="text/javascript">
         
         $(()=>{
+
+            $('#btn_save').click(()=>{
+                $('#workStatus').html('พร้อมทำงาน');
+                $('#workingStatus').val('0');
+                $('#scanResult').html('');
+                $('#fullName').html('');
+                $('#dept').html('');
+                $('#signinTime').html('');
+                $('#saveMessage').html('บันทึกสำเร็จ');
+            });
+
+            $('#btn_cancel').click(()=>{
+                $('#workStatus').html('พร้อมทำงาน');
+                $('#workingStatus').val('0');
+                $('#scanResult').html('');
+                $('#fullName').html('');
+                $('#dept').html('');
+                $('#signinTime').html('');
+                $('#saveMessage').html('');
+            });
+
             var socket = io();
-            //socket.emit('chat message','socket io tutorial');
-            /*
-            $('form').submit(()=>{
-               socket.emit('chat message',$('#m').val());
-               $('#m').val('');
-               return false;
-            });
-            */
-           var location="";
+            socket.on('K001',(msg)=>{
 
-            $('#btn_start').click(()=>{
-                $('#start_area').hide();
-                $('#scan_area').show();
-                $('#workStatus').html('พร้อมทำงาน');
-                $('#workingStatus').val('0');
-                $('#scanResult').html('');
-                $('#fullName').html('');
-                $('#dept').html('');
-                $('#signinTime').html('');
-                $('#saveMessage').html('');
-                location="";
-                //location=$("select#location option").filter(":selected").val();
-                //console.log(location);
-            });
-            $('#btn_end').click(()=>{
-                $('#start_area').show();
-                $('#scan_area').hide();
-                $('#workStatus').html('พร้อมทำงาน');
-                $('#workingStatus').val('0');
-                $('#scanResult').html('');
-                $('#fullName').html('');
-                $('#dept').html('');
-                $('#signinTime').html('');
-                $('#saveMessage').html('');
-                location="";
-            });
-
-            location=$("select#location option").filter(":selected").val();
-            console.log(location);
-            socket.on(location,(msg)=>{
-                //$('#show_message').html(msg);
-                //console.log(msg.scanStatus)
                 var workingStatus = $('#workingStatus').val();
                 
                 if (workingStatus=='0'){
@@ -78,25 +59,6 @@
 
             });
 
-            $('#btn_save').click(()=>{
-                $('#workStatus').html('พร้อมทำงาน');
-                $('#workingStatus').val('0');
-                $('#scanResult').html('');
-                $('#fullName').html('');
-                $('#dept').html('');
-                $('#signinTime').html('');
-                $('#saveMessage').html('บันทึกสำเร็จ');
-            });
-
-            $('#btn_cancel').click(()=>{
-                $('#workStatus').html('พร้อมทำงาน');
-                $('#workingStatus').val('0');
-                $('#scanResult').html('');
-                $('#fullName').html('');
-                $('#dept').html('');
-                $('#signinTime').html('');
-                $('#saveMessage').html('');
-            });
 
         });
     
@@ -105,27 +67,16 @@
 </head>
 <body>
 
-    <h1>Orverbrook Sig In</h1>
-    <div id="start_area">
+    <h1>Orverbrook Hospital ลงทะเบียนเข้างาน ตึกหมอกำพล</h1>
+    <div id="scan_area"> 
         
-        <label> เลือกจุดลงทะเบียน : </label>
-        <select id="location" name="location" style="width:200px;">
-            <option value="B001">ตึกหมอบลิกส์</option>
-            <option value="K001">ตึกหมอกัมพล</option>
-            <option value="D001">ตึกอำนวยการ</option>
-        </select>
-        <button id="btn_start" style="width:200px;">เริ่ม!!</button>
-
-    </div>
-    <div id="scan_area" style="display:none"> 
-        
-        Working Status : <label id="workStatus"> พร้อมทำงาน </label><br/>
+        สถานะการทำงาน : <label id="workStatus"> พร้อมทำงาน </label><br/>
         <input type="hidden" id="workingStatus" value="0"/>
         Scan Result : <label id="scanResult">.......</label><br/>
         ชื่อ-สกุล : <label id="fullName"> ................................ </label> <br/>
         แผนก : <label id="dept"> ................................ </label> <br/>
         เวลาเข้างาน : <label id="signinTime"> ................................ </label> <br/><br/>
-        <button id="btn_save">บันทึก</button>&nbsp;<button id="btn_cancel">ยกเลิก</button>&nbsp;<button id="btn_end">จบการทำงาน</button><br/>
+        <button id="btn_save">บันทึก</button>&nbsp;<button id="btn_cancel">ยกเลิก</button>&nbsp;
         <label id="saveMessage"></label>
 
     </div>
