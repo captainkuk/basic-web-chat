@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Web Chat</title>
+   
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript">
+        
+        $(()=>{
+
+            $('#btn_save').click(()=>{
+                $('#hn').html('');
+                $('#hn').attr("disabled", "disabled"); 
+                $('#name').val('');
+                $('#name').attr("disabled", "disabled"); 
+                $('#fullName').html('');
+                $('#fullName').attr("disabled", "disabled"); 
+                $('#lastname').html('');
+                $('#lastname').attr("disabled", "disabled"); 
+                $('#dept').html('');
+                $('#dept').attr("disabled", "disabled"); 
+                $('#ansiFile').val('');
+                $('#isoFile').val('');
+                $('#saveMessage').html('บันทึกสำเร็จ');
+            });
+
+            $('#btn_cancel').click(()=>{
+                $('#hn').html('');
+                $('#hn').attr("disabled", "disabled"); 
+                $('#name').val('');
+                $('#name').attr("disabled", "disabled"); 
+                $('#fullName').html('');
+                $('#fullName').attr("disabled", "disabled"); 
+                $('#lastname').html('');
+                $('#lastname').attr("disabled", "disabled"); 
+                $('#dept').html('');
+                $('#dept').attr("disabled", "disabled"); 
+                $('#ansiFile').val('');
+                $('#isoFile').val('');
+                $('#saveMessage').html('');
+            });
+
+            var socket = io();
+            socket.on('fingersaveready',(msg)=>{
+
+                $('#hn').removeAttr("disabled");
+                $('#name').removeAttr("disabled");
+                $('#fullName').removeAttr("disabled");
+                $('#lastname').removeAttr("disabled");
+                $('#dept').removeAttr("disabled");
+                $('#saveMessage').html('');
+                $('#ansiFile').val(msg.ansiFile);
+                $('#isoFile').val(msg.isoFile);
+    
+            });
+
+
+        });
+    
+    </script>
+
+</head>
+<body>
+
+    <h1>Orverbrook Hospital บันทึกลายนิ้วมือ </h1>
+    
+    HN : <input type="text" name="" id="hn" disabled> <br/>
+    ชื่อ : <input type="text" name="" id="name" disabled> สกุล : <input type="text" name="" id="lastname" disabled><br/>
+    แผนก : <input type="text" name="" id="dept" disabled> <br/><br/>
+    <input type="hidden" id="ansiFile">
+    <input type="hidden" id="isoFile">
+    <button id="btn_save">บันทึก</button>&nbsp;<button id="btn_cancel">ยกเลิก</button>&nbsp;
+    <label id="saveMessage"></label>
+</body>
+</html>

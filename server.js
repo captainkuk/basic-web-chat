@@ -18,6 +18,9 @@ app.get('/K001',(req,res)=>{
 app.get('/D001',(req,res)=>{
     res.sendFile(__dirname+'/dbuilding.html');
 });
+app.get('/fingersave',(req,res)=>{
+    res.sendFile(__dirname+'/fingersave.html');
+});
 
 app.post('/B001/sendScan', urlencodedParser, function (req, res) {
     //var location = req.body.location;
@@ -26,7 +29,7 @@ app.post('/B001/sendScan', urlencodedParser, function (req, res) {
     var dept = req.body.dept;
     var signinTime = req.body.signinTime;
     io.emit('B001',{scanResult:scanResult,fullName:fullName,dept:dept,signinTime:signinTime});
-    res.send('send message success!')
+    res.send('send success!')
 });
 app.post('/K001/sendScan', urlencodedParser, function (req, res) {
     //var location = req.body.location;
@@ -35,7 +38,7 @@ app.post('/K001/sendScan', urlencodedParser, function (req, res) {
     var dept = req.body.dept;
     var signinTime = req.body.signinTime;
     io.emit('K001',{scanResult:scanResult,fullName:fullName,dept:dept,signinTime:signinTime});
-    res.send('send message success!')
+    res.send('send success!')
 });
 app.post('/D001/sendScan', urlencodedParser, function (req, res) {
     //var location = req.body.location;
@@ -44,7 +47,17 @@ app.post('/D001/sendScan', urlencodedParser, function (req, res) {
     var dept = req.body.dept;
     var signinTime = req.body.signinTime;
     io.emit('D001',{scanResult:scanResult,fullName:fullName,dept:dept,signinTime:signinTime});
-    res.send('send message success!')
+    res.send('send success!')
+});
+app.post('/fingersave/ready', urlencodedParser, function (req, res) {
+    //var location = req.body.location;
+    var ansiFile = req.body.ansiFile;
+    var isoFile = req.body.isoFile;
+    io.emit('fingersaveready',{ansiFile:ansiFile,isoFile:isoFile});
+    //console.log(ansiFile);
+    //console.log(isoFile);
+    res.send('send success!')
+
 });
 
 io.on('connection',(socket)=>{
