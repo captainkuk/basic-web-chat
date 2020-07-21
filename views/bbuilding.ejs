@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>B Building</title>
+
+    <link rel="stylesheet" href="dist/bootstrap/css/bootstrap.min.css" />
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="dist/bootstrap/js/bootstrap.min.js"></script>
+    <script src="dist/js/jquery/jquery.min.js"></script>
+
+    <script type="text/javascript">
+      $(() => {
+        $("#btn_save").click(() => {
+          $("#workStatus").html("พร้อมทำงาน");
+          $("#workingStatus").val("0");
+          $("#scanResult").html("");
+          $("#fullName").html("");
+          $("#dept").html("");
+          $("#signinTime").html("");
+          $("#saveMessage").html("บันทึกสำเร็จ");
+        });
+
+        $("#btn_cancel").click(() => {
+          $("#workStatus").html("พร้อมทำงาน");
+          $("#workingStatus").val("0");
+          $("#scanResult").html("");
+          $("#fullName").html("");
+          $("#dept").html("");
+          $("#signinTime").html("");
+          $("#saveMessage").html("");
+        });
+
+        var socket = io();
+        socket.on("B001", (msg) => {
+          var workingStatus = $("#workingStatus").val();
+
+          if (workingStatus == "0") {
+            if (msg.scanResult == "Y") {
+              $("#workStatus").html(
+                "อยู่ระหว่างการบันทึกข้อมูล กรุณากดบันทึกหรือยกเลิกเพื่อทำงานต่อ"
+              );
+              $("#workingStatus").val("1");
+              $("#scanResult").html(msg.scanResult);
+              $("#fullName").html(msg.fullName);
+              $("#dept").html(msg.dept);
+              $("#signinTime").html(msg.signinTime);
+              $("#saveMessage").html("");
+            } else {
+              $("#workStatus").html("พร้อมทำงาน");
+              $("#workingStatus").val("0");
+              $("#scanResult").html(msg.scanResult);
+              $("#fullName").html("");
+              $("#dept").html("");
+              $("#signinTime").html("");
+              $("#saveMessage").html("");
+            }
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-info">
+            <strong>Orverbrook Hospital ลงทะเบียนเข้างาน ตึกหมอบริกส์</strong>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div id="scan_area">
+            สถานะการทำงาน : <label id="workStatus"> พร้อมทำงาน </label><br />
+            <input type="hidden" id="workingStatus" value="0" />
+            Scan Result : <label id="scanResult">.......</label><br />
+            ชื่อ-สกุล :
+            <label id="fullName"> ................................ </label>
+            <br />
+            แผนก : <label id="dept"> ................................ </label>
+            <br />
+            เวลาเข้างาน :
+            <label id="signinTime"> ................................ </label>
+            <br /><br />
+            <button id="btn_save" class="btn btn-primary" style="width:100px;">บันทึก</button>&nbsp;
+            <button id="btn_cancel" class="btn btn-warning" style="width:100px;">ยกเลิก</button>&nbsp;
+            <label id="saveMessage"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

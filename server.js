@@ -1,16 +1,28 @@
-var app = require('express')();
-var http = require('http').Server(app);
+var express = require('express');
 const bodyParser = require('body-parser');
-var io = require('socket.io')(http);
+var path = require('path');
+const { static } = require('express');
 
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
-
 //app.use(bodyParser.json());
+
+app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.set("view engine","ejs");
+app.set('views', './views');
 app.use(bodyParser.json({ type: 'application/*+json' }))
+app.use(express.static(path.join(__dirname,'/views')));
+
+app.get('/',(req,res)=>{
+    res.render("index");
+});
 
 app.get('/B001',(req,res)=>{
-    res.sendFile(__dirname+'/bbuilding.html');
+    //res.sendFile(__dirname+'/bbuilding.html');
+    res.render("bbuilding.ejs")
 });
 app.get('/K001',(req,res)=>{
     res.sendFile(__dirname+'/kbuilding.html');
